@@ -1,0 +1,33 @@
+version: "3.1"
+
+volumes:
+  postgres_volume:
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=recipe_service
+    volumes:
+    - postgres_volume:/var/lib/postgresql/data/
+    restart: always
+    ports:
+      - 5432:5432
+
+  recipe_service:
+      build: .
+      environment:
+        - DATABASE_USER=admin
+        - DATABASE_PASSWORD=admin
+        - DATABASE=recipe_service
+        - PSQL_SERVER=postgres:5432
+      command: uvicorn app:app --reload --host 0.0.0.0 --port 80
+      volumes:
+        - .:/usr/src/app/
+      restart: always
+      ports:
+        - 80:80
+      depends_on:
+        - postgres

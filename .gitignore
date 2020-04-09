@@ -1,0 +1,9 @@
+.idea/
+/__pycache__/
+/venv/
+/service/__pycache__/
+/routes/__pycache__/
+/utils/__pycache__/
+/database/__pycache__/
+celerybeat-schedule
+tests/__pycache__/
