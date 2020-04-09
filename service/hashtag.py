@@ -7,6 +7,12 @@ from utils.db import get_hashtags, get_hashtags_by_tags
 
 
 def create_hashtag(db: Session, tags: list) -> List[models.Hashtag]:
+    """Create new a hashtag
+
+    :param db: database connection
+    :param tags: list hashtags
+    :return: list (object Hashtag) added hashtags
+    """
     hashtags_db = get_hashtags(db)
     hashtags_set = set([hashtag.tag for hashtag in hashtags_db])
     tags = set(tags) - hashtags_set
@@ -25,6 +31,13 @@ def create_hashtag(db: Session, tags: list) -> List[models.Hashtag]:
 
 
 def create_recipe_hashtags(db: Session, recipe_id: int, hashtags: List[str]) -> List[models.RecipeHashtag]:
+    """Add hashtags to a recipe
+
+    :param db: database connection
+    :param recipe_id: ID of the recipe to add to
+    :param hashtags: list hashtags
+    :return:
+    """
     hashtags_db = get_hashtags_by_tags(db, hashtags)
     hashtags_list = []
     for hashtag in hashtags_db:

@@ -37,8 +37,8 @@ def registration(db: Session, user_data: schemas.UserCreate, role: str = 'user')
 def login(db: Session, user_data: schemas.UserCreate) -> dict:
     """User authorization
 
-    :param user_data: object UserCreate with data a user for login
     :param db: database connection
+    :param user_data: object UserCreate with data a user for login
     :return: Dictionary with access token and token type
     """
     db_user = get_user_by_nickname(db, user_data.nickname)
@@ -55,6 +55,12 @@ def login(db: Session, user_data: schemas.UserCreate) -> dict:
 
 
 def get_profile(db: Session, user_id: int) -> dict:
+    """Get user profile
+
+    :param db: database connection
+    :param user_id: user id
+    :return: Dictionary with info about the user
+    """
     db_user = get_user(db, user_id)
     if db_user:
         profile = {
@@ -70,6 +76,12 @@ def get_profile(db: Session, user_id: int) -> dict:
 
 
 def ban_user(db: Session, user_id: int) -> models.User:
+    """Prohibit the user from adding their own recipes
+
+    :param db: database connection
+    :param user_id: user id
+    :return: object User with data the user
+    """
     user_data = get_user(db, user_id)
     user_data.is_active = not user_data.is_active
     try:
@@ -83,6 +95,12 @@ def ban_user(db: Session, user_id: int) -> models.User:
 
 
 def delete_user(db: Session, user_id: int) -> bool:
+    """Delete user
+
+    :param db: database connection
+    :param user_id: user id
+    :return: the result of the removal
+    """
     user_data = get_user(db, user_id)
     if user_data is None:
         return False
