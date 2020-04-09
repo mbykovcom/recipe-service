@@ -8,6 +8,9 @@ recipe-service backend
 Сервис разворачивается на Docker Containers (Recipe-Service and PostgreSQL), Dockerfile и docker-compose.yaml в проекте
 присутвтуют
 
+!!! Изначально БД пуста.
+!!! Выполнение тестов польностью очищают БД.
+
 Все необходимые зависимости для работы сервиса расположены в requirements.txt
 
 Написаны unittests для проверки работоспостобности сервиса, покрыты основные функции сервиса
